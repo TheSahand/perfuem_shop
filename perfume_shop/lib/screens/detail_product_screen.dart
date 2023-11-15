@@ -15,15 +15,15 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
       appBar: AppBar(
         backgroundColor: MyColors.golbehiColor,
         elevation: 0,
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.only(right: 30),
+            padding: EdgeInsets.only(right: 30),
             child: Image(
                 width: 32, height: 32, image: AssetImage('images/favour.png')),
           )
         ],
-        leading: Padding(
-          padding: const EdgeInsets.all(10.0),
+        leading: const Padding(
+          padding: EdgeInsets.all(10.0),
           child: Image(
               width: 32, height: 32, image: AssetImage('images/back.png')),
         ),
@@ -33,7 +33,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
         children: [
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       alignment: Alignment.topCenter,
                       fit: BoxFit.cover,
