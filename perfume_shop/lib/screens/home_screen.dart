@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 0,
           leading: Padding(
             padding: EdgeInsets.all(4.w),
-            child: Image(image: AssetImage('images/menu.png')),
+            child: const Image(image: AssetImage('images/menu.png')),
           )),
       body: SingleChildScrollView(
         child: Column(
@@ -43,12 +43,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
                   },
                   child: Stack(alignment: Alignment.center, children: [
-                    Text('Men'),
+                    const Text('Men'),
                     Opacity(
                         opacity: showMenCircle,
                         child: Image(
                             width: 40.w,
-                            image: AssetImage('images/circle.png')))
+                            image: const AssetImage('images/circle.png')))
                   ]),
                 ),
                 SizedBox(
@@ -62,12 +62,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
                   },
                   child: Stack(alignment: Alignment.center, children: [
-                    Text('Women'),
+                    const Text('Women'),
                     Opacity(
                         opacity: showWomenCircle,
                         child: Image(
                             width: 40.w,
-                            image: AssetImage('images/circle.png')))
+                            image: const AssetImage('images/circle.png')))
                   ]),
                 ),
               ],
@@ -81,20 +81,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 6.h,
                 child: TextField(
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(8),
+                      contentPadding: const EdgeInsets.all(8),
                       suffixIcon: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Image(
                             height: 5.w,
                             width: 5.w,
-                            image: AssetImage('images/search.png')),
+                            image: const AssetImage('images/search.png')),
                       ),
                       border: InputBorder.none,
                       enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: MyColors.borderColor),
+                          borderSide:
+                              const BorderSide(color: MyColors.borderColor),
                           borderRadius: BorderRadius.circular(8)),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: MyColors.borderColor),
+                          borderSide:
+                              const BorderSide(color: MyColors.borderColor),
                           borderRadius: BorderRadius.circular(8))),
                 ),
               ),
@@ -117,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                             child: Row(
                               children: [
-                                RotatedBox(
+                                const RotatedBox(
                                   quarterTurns: -1,
                                   child: Text('Popular products'),
                                 ),
@@ -129,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Container(
                                     width: 3.w,
                                     height: 3.w,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: Colors.amber,
                                     ),
@@ -150,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                             child: Row(
                               children: [
-                                RotatedBox(
+                                const RotatedBox(
                                   quarterTurns: -1,
                                   child: Text('Newest products'),
                                 ),
@@ -162,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Container(
                                       width: 3.w,
                                       height: 3.w,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Colors.amber,
                                       )),
@@ -174,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       )),
                   Expanded(
                     flex: 8,
-                    child: Container(
+                    child: SizedBox(
                       height: 40.h,
                       child: PageView.builder(
                         onPageChanged: (int index) {
@@ -193,16 +195,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          DetailProductScreen(),
+                                          const DetailProductScreen(),
                                     ));
                               },
                               child: Container(
-                                margin: EdgeInsets.symmetric(
+                                margin: const EdgeInsets.symmetric(
                                     vertical: 20, horizontal: 15),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(12),
-                                    boxShadow: [
+                                    boxShadow: const [
                                       BoxShadow(
                                           color: MyColors.shadowColor,
                                           blurRadius: 20,
@@ -221,14 +223,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                             color: MyColors.golbehiColor),
                                         child: Padding(
                                           padding: EdgeInsets.all(5.w),
-                                          child: Image(
+                                          child: const Image(
                                               image: AssetImage(
                                                   'images/perfume.png')),
                                         ),
                                       ),
                                     ),
-                                    Text('Chanel Chance Eau Tendre'),
-                                    Text('\$199.9'),
+                                    const Text('Chanel Chance Eau Tendre'),
+                                    const Text('\$199.9'),
                                   ],
                                 ),
                               ),
@@ -253,16 +255,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               color: MyColors.golbehiColor),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(15),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(15),
                                             child: Image(
                                                 image: AssetImage(
                                                     'images/perfume.png')),
                                           ),
                                         ),
                                       ),
-                                      Text('Chanel Chance Eau Tendre'),
-                                      Text('\$199.9'),
+                                      const Text('Chanel Chance Eau Tendre'),
+                                      const Text('\$199.9'),
                                     ],
                                   ),
                                 ));
@@ -298,7 +300,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 70.w,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                   blurRadius: 30,
                                   offset: Offset(0, 16),
@@ -310,18 +312,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           Row(
                             children: [
                               Container(
-                                margin: EdgeInsets.all(5),
+                                margin: const EdgeInsets.all(5),
                                 width: 80,
                                 decoration: BoxDecoration(
                                     color: MyColors.keremColor,
                                     borderRadius: BorderRadius.circular(8)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(5),
                                   child: Image(
                                       image: AssetImage('images/perfume2.png')),
                                 ),
                               ),
-                              Column(
+                              const Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -342,12 +344,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           Container(
                             width: 52,
                             height: 25,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 color: MyColors.orangeColor,
                                 borderRadius: BorderRadius.only(
                                     bottomRight: Radius.circular(15),
                                     topLeft: Radius.circular(20))),
-                            child: Center(
+                            child: const Center(
                                 child: Text(
                               '%-30',
                               style: TextStyle(color: Colors.white),
