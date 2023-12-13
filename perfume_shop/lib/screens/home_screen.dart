@@ -1,4 +1,6 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:perfume_shop/constants/colors.dart';
 import 'package:perfume_shop/screens/detail_product_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -11,357 +13,290 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  double showMenCircle = 0.0;
-  double showWomenCircle = 1.0;
-  double showNewsestProduct = 0.0;
-  double showPopularProduct = 1.0;
-  int firstItem = 0;
-  PageController controller = PageController(viewportFraction: 0.75);
   @override
   Widget build(BuildContext context) {
+    final List<String> categoryListItems = [
+      'همه',
+      'زنانه',
+      'مردانه',
+      'کودک',
+    ];
+    int selectedCategoryListItems = 0;
+    CarouselController controller = CarouselController();
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: MyColors.backgroundColor,
-      appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: Padding(
-            padding: EdgeInsets.all(4.w),
-            child: const Image(image: AssetImage('images/menu.png')),
-          )),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      showMenCircle = 1.0;
-                      showWomenCircle = 0.0;
-                    });
-                  },
-                  child: Stack(alignment: Alignment.center, children: [
-                    const Text('Men'),
-                    Opacity(
-                        opacity: showMenCircle,
-                        child: Image(
-                            width: 40.w,
-                            image: const AssetImage('images/circle.png')))
-                  ]),
-                ),
-                SizedBox(
-                  width: 5.w,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      showMenCircle = 0.0;
-                      showWomenCircle = 1.0;
-                    });
-                  },
-                  child: Stack(alignment: Alignment.center, children: [
-                    const Text('Women'),
-                    Opacity(
-                        opacity: showWomenCircle,
-                        child: Image(
-                            width: 40.w,
-                            image: const AssetImage('images/circle.png')))
-                  ]),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 2.h,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.w),
-              child: SizedBox(
-                height: 6.h,
-                child: TextField(
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.all(8),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Image(
-                            height: 5.w,
-                            width: 5.w,
-                            image: const AssetImage('images/search.png')),
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverToBoxAdapter(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    SizedBox(height: 3.h),
+                    Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: TextField(
+                        decoration: InputDecoration(
+                            hintText: 'جستجو کنید...',
+                            contentPadding: const EdgeInsets.all(15),
+                            hintStyle: const TextStyle(fontSize: 14),
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: SvgPicture.asset(
+                                'images/search_icon.svg',
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(12)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(12)),
+                            filled: true,
+                            fillColor: MyColors.textFieldColor),
                       ),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: MyColors.borderColor),
-                          borderRadius: BorderRadius.circular(8)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: MyColors.borderColor),
-                          borderRadius: BorderRadius.circular(8))),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 4.w),
-              child: Row(
-                children: [
-                  Expanded(
-                      flex: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                showPopularProduct = 1.0;
-                                showNewsestProduct = 0.0;
-                              });
-                            },
-                            child: Row(
-                              children: [
-                                const RotatedBox(
-                                  quarterTurns: -1,
-                                  child: Text('Popular products'),
-                                ),
-                                SizedBox(
-                                  width: 4.w,
-                                ),
-                                Opacity(
-                                  opacity: showPopularProduct,
-                                  child: Container(
-                                    width: 3.w,
-                                    height: 3.w,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.amber,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 4.h,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                showPopularProduct = 0.0;
-                                showNewsestProduct = 1.0;
-                              });
-                            },
-                            child: Row(
-                              children: [
-                                const RotatedBox(
-                                  quarterTurns: -1,
-                                  child: Text('Newest products'),
-                                ),
-                                SizedBox(
-                                  width: 4.w,
-                                ),
-                                Opacity(
-                                  opacity: showNewsestProduct,
-                                  child: Container(
-                                      width: 3.w,
-                                      height: 3.w,
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.amber,
-                                      )),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      )),
-                  Expanded(
-                    flex: 8,
-                    child: SizedBox(
-                      height: 40.h,
-                      child: PageView.builder(
-                        onPageChanged: (int index) {
-                          setState(() {
-                            firstItem = index;
-                          });
-                        },
-                        controller: controller,
-                        physics: const BouncingScrollPhysics(),
-                        padEnds: false,
-                        itemBuilder: (context, index) {
-                          if (index == firstItem) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const DetailProductScreen(),
-                                    ));
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                    vertical: 20, horizontal: 15),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(12),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                          color: MyColors.shadowColor,
-                                          blurRadius: 20,
-                                          offset: Offset(0, 16)),
-                                    ]),
+                    ),
+                    SizedBox(height: 2.h),
+                    Image(image: AssetImage('images/banner.png')),
+                    SizedBox(height: 3.h),
+                    const Text(
+                      'دسته بندی',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 3.h),
+                    SizedBox(
+                      height: 3.8.h,
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: ListView.builder(
+                          itemCount: categoryListItems.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 38),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedCategoryListItems = index;
+                                  });
+                                },
                                 child: Column(
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.all(4.w),
-                                      child: Container(
-                                        height: 25.h,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            color: MyColors.golbehiColor),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(5.w),
-                                          child: const Image(
-                                              image: AssetImage(
-                                                  'images/perfume.png')),
-                                        ),
-                                      ),
+                                    Text(
+                                      categoryListItems[index],
+                                      style: TextStyle(
+                                          color:
+                                              selectedCategoryListItems == index
+                                                  ? MyColors.orangeColor
+                                                  : Colors.black),
                                     ),
-                                    const Text('Chanel Chance Eau Tendre'),
-                                    const Text('\$199.9'),
+                                    Opacity(
+                                      opacity:
+                                          selectedCategoryListItems == index
+                                              ? 1.0
+                                              : 0.0,
+                                      child: Container(
+                                        height: 2.w,
+                                        width: 2.w,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: MyColors.orangeColor),
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
                             );
-                          } else {
-                            return Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 5.h,
-                                ),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(12)),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.all(4.w),
-                                        child: Container(
-                                          height: 21.h,
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color: MyColors.golbehiColor),
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(15),
-                                            child: Image(
-                                                image: AssetImage(
-                                                    'images/perfume.png')),
-                                          ),
-                                        ),
-                                      ),
-                                      const Text('Chanel Chance Eau Tendre'),
-                                      const Text('\$199.9'),
-                                    ],
-                                  ),
-                                ));
-                          }
-                        },
+                          },
+                        ),
                       ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                  height: 45.h,
+                  child: CarouselSlider(
+                    carouselController: controller,
+                    options: CarouselOptions(
+                      height: 45.h,
+                      viewportFraction: 0.55,
+                      initialPage: 0,
+                      enableInfiniteScroll: true,
+                      reverse: true,
+                      autoPlay: true,
+                      autoPlayInterval: Duration(seconds: 3),
+                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enlargeCenterPage: true,
+                      enlargeFactor: 0.17,
+                      scrollDirection: Axis.horizontal,
                     ),
-                  )
-                ],
-              ),
+                    items: [1, 2, 3, 4, 5].map((i) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DetailProductScreen(),
+                                  ));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                  left: 2, right: 2, bottom: 24),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.white,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.all(18),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 20),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: MyColors.itemBackgroundColor),
+                                    child: Image(
+                                        height: 40.w,
+                                        width: 40.w,
+                                        image:
+                                            AssetImage('images/perfume.png')),
+                                  ),
+                                  Text('Chanel Chance Eau Tendre'),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'تومان',
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(width: 1.w),
+                                      Text(
+                                        '1،200،000',
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }).toList(),
+                  )),
             ),
-            SizedBox(height: 5.h),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+            SliverToBoxAdapter(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text('Suggested'),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      'محصولات پیشنهادی',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ],
               ),
             ),
-            SizedBox(
-              height: 17.h,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      Container(
-                        margin:
-                            EdgeInsets.only(left: 16, top: 3.h, bottom: 3.h),
-                        height: 15.h,
-                        width: 70.w,
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 12.h,
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: ListView.builder(
+                    padding: EdgeInsets.only(right: 16),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.only(left: 8),
+                        height: 12.h,
+                        width: 75.w,
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: const [
-                              BoxShadow(
-                                  blurRadius: 30,
-                                  offset: Offset(0, 16),
-                                  color: MyColors.shadowColor)
-                            ],
-                            borderRadius: BorderRadius.circular(15)),
-                        child:
-                            Stack(alignment: Alignment.bottomRight, children: [
-                          Row(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.all(5),
-                                width: 80,
-                                decoration: BoxDecoration(
-                                    color: MyColors.keremColor,
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(5),
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Stack(
+                          alignment: Alignment.bottomLeft,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  height: 20.w,
+                                  width: 20.w,
+                                  padding: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: MyColors.itemBackgroundColor),
                                   child: Image(
-                                      image: AssetImage('images/perfume2.png')),
+                                      image: AssetImage('images/perfume.png')),
+                                ),
+                                SizedBox(
+                                  width: 2.w,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text('COCO Mademoiselle'),
+                                    Text(
+                                      '2،000،000',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        decoration: TextDecoration.lineThrough,
+                                        decorationColor: MyColors.orangeColor,
+                                      ),
+                                    ),
+                                    Text(
+                                      '1،500،000 تومان',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Container(
+                              height: 3.h,
+                              width: 15.w,
+                              decoration: BoxDecoration(
+                                  color: MyColors.orangeColor,
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(
+                                        12,
+                                      ),
+                                      topRight: Radius.circular(20))),
+                              child: Center(
+                                child: Text(
+                                  '30%-',
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               ),
-                              const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('COCO Mademoiselle'),
-                                  Text(
-                                    '\$256',
-                                    style: TextStyle(
-                                        decoration: TextDecoration.lineThrough),
-                                  ),
-                                  Text(
-                                    '\$166.4',
-                                    style: TextStyle(color: Colors.green),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                          Container(
-                            width: 52,
-                            height: 25,
-                            decoration: const BoxDecoration(
-                                color: MyColors.orangeColor,
-                                borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(15),
-                                    topLeft: Radius.circular(20))),
-                            child: const Center(
-                                child: Text(
-                              '%-30',
-                              style: TextStyle(color: Colors.white),
-                            )),
-                          )
-                        ]),
-                      ),
-                    ],
-                  );
-                },
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
-            )
+            ),
+            SliverPadding(padding: EdgeInsets.only(top: 16))
           ],
         ),
       ),

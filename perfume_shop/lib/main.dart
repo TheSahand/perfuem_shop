@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:perfume_shop/constants/colors.dart';
+import 'package:perfume_shop/screens/cart_screen.dart';
 import 'package:perfume_shop/screens/home_screen.dart';
+import 'package:perfume_shop/screens/login_screen.dart';
+import 'package:perfume_shop/screens/profile_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 void main() {
@@ -21,7 +25,8 @@ class _MyAppState extends State<MyApp> {
       builder: (context, orientation, screenType) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: MainScreen(),
+          theme: ThemeData(fontFamily: 'IY'),
+          home: LoginScreen(),
         );
       },
     );
@@ -40,113 +45,100 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: MyColors.orangeColor,
-            blurRadius: 1,
-            spreadRadius: 1,
-          ),
-        ]),
-        child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            currentIndex: currentIndex,
-            onTap: (value) {
-              setState(() {
-                currentIndex = value;
-              });
-            },
-            items: [
-              BottomNavigationBarItem(
-                  icon: Image(
-                      height: 24,
-                      width: 24,
-                      image: AssetImage('images/home.png')),
-                  activeIcon: Column(
-                    children: [
-                      Image(
-                          height: 24,
-                          width: 24,
-                          image: AssetImage('images/home.png')),
-                      SizedBox(height: 5),
-                      Container(
-                        height: 7,
-                        width: 7,
-                        decoration: BoxDecoration(
-                            color: MyColors.orangeColor,
-                            shape: BoxShape.circle),
-                      )
-                    ],
-                  ),
-                  label: 'Home'),
-              BottomNavigationBarItem(
-                  icon: Image(
-                      height: 24,
-                      width: 24,
-                      image: AssetImage('images/cart.png')),
-                  activeIcon: Column(
-                    children: [
-                      Image(
-                          height: 24,
-                          width: 24,
-                          image: AssetImage('images/cart.png')),
-                      SizedBox(height: 5),
-                      Container(
-                        height: 7,
-                        width: 7,
-                        decoration: BoxDecoration(
-                            color: MyColors.orangeColor,
-                            shape: BoxShape.circle),
-                      )
-                    ],
-                  ),
-                  label: 'Cart'),
-              BottomNavigationBarItem(
-                  icon: Image(
-                      height: 24,
-                      width: 24,
-                      image: AssetImage('images/favorite.png')),
-                  activeIcon: Column(
-                    children: [
-                      Image(
-                          height: 24,
-                          width: 24,
-                          image: AssetImage('images/favorite.png')),
-                      SizedBox(height: 5),
-                      Container(
-                        height: 7,
-                        width: 7,
-                        decoration: BoxDecoration(
-                            color: MyColors.orangeColor,
-                            shape: BoxShape.circle),
-                      )
-                    ],
-                  ),
-                  label: 'Favorite'),
-              BottomNavigationBarItem(
-                  icon: CircleAvatar(
-                      maxRadius: 14,
-                      backgroundImage: AssetImage('images/profile.jpg')),
-                  activeIcon: Column(children: [
-                    CircleAvatar(
-                        maxRadius: 12,
-                        backgroundImage: AssetImage('images/profile.jpg')),
+      bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          currentIndex: currentIndex,
+          onTap: (value) {
+            setState(() {
+              currentIndex = value;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  'images/home.svg',
+                  color: MyColors.iconColor,
+                ),
+                activeIcon: Column(
+                  children: [
+                    SvgPicture.asset('images/home.svg'),
                     SizedBox(height: 5),
                     Container(
                       height: 7,
                       width: 7,
                       decoration: BoxDecoration(
                           color: MyColors.orangeColor, shape: BoxShape.circle),
+                    )
+                  ],
+                ),
+                label: 'Home'),
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  'images/cart.svg',
+                  color: MyColors.iconColor,
+                ),
+                activeIcon: Column(
+                  children: [
+                    SvgPicture.asset(
+                      'images/cart.svg',
+                      color: MyColors.orangeColor,
                     ),
-                  ]),
-                  label: 'Profile')
-            ]),
-      ),
+                    SizedBox(height: 5),
+                    Container(
+                      height: 7,
+                      width: 7,
+                      decoration: BoxDecoration(
+                          color: MyColors.orangeColor, shape: BoxShape.circle),
+                    )
+                  ],
+                ),
+                label: 'Cart'),
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  'images/favorite.svg',
+                  color: MyColors.iconColor,
+                ),
+                activeIcon: Column(
+                  children: [
+                    SvgPicture.asset(
+                      'images/favorite.svg',
+                      color: MyColors.orangeColor,
+                    ),
+                    SizedBox(height: 5),
+                    Container(
+                      height: 7,
+                      width: 7,
+                      decoration: BoxDecoration(
+                          color: MyColors.orangeColor, shape: BoxShape.circle),
+                    )
+                  ],
+                ),
+                label: 'Favorite'),
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  'images/profile.svg',
+                  color: MyColors.iconColor,
+                ),
+                activeIcon: Column(children: [
+                  SvgPicture.asset(
+                    'images/profile.svg',
+                    color: MyColors.orangeColor,
+                  ),
+                  SizedBox(height: 5),
+                  Container(
+                    height: 7,
+                    width: 7,
+                    decoration: BoxDecoration(
+                        color: MyColors.orangeColor, shape: BoxShape.circle),
+                  ),
+                ]),
+                label: 'Profile')
+          ]),
       body: IndexedStack(
         index: currentIndex,
-        children: [HomeScreen(), HomeScreen(), HomeScreen(), HomeScreen()],
+        children: [HomeScreen(), CartScreen(), HomeScreen(), ProfileScreen()],
       ),
     );
   }
